@@ -104,13 +104,6 @@ CREATE TABLE event (
 	FOREIGN KEY (loc_id) REFERENCES community
 );
 
--- relation table to check who created the event
-CREATE TABLE creates (
-	id VARCHAR(10),
-	event_id VARCHAR(10),
-	FOREIGN KEY (id) REFERENCES person,
-	FOREIGN KEY (event_id) REFERENCES event
-);
 
 -- Table for checking households served at the event
 CREATE TABLE household (
@@ -119,4 +112,40 @@ CREATE TABLE household (
 	event_id VARCHAR(10),
 	PRIMARY KEY (ssn),
 	FOREIGN KEY (event_id) REFERENCES event
+);
+
+-- Relation table to see volunteers participated at an event
+CREATE TABLE participates (
+	id VARCHAR(10),
+	event_id VARCHAR(10),
+	FOREIGN KEY (id) REFERENCES volunteer,
+	FOREIGN KEY (event_id) REFERENCES event
+);
+
+CREATE TABLE donation (
+	donation_id VARCHAR(10),
+	quantity quantity_domain,
+	PRIMARY KEY (donation_id)
+);
+
+CREATE TABLE inventory (
+	inventory_id VARCHAR(10),
+	quantity quantity_domain,
+	PRIMARY KEY (inventory_id)
+);
+
+-- Relation table to check inventory items
+CREATE TABLE contains (
+	item_id VARCHAR(10),
+	inventory_id VARCHAR(10),
+	FOREIGN KEY (item_id) REFERENCES food_item,
+	FOREIGN KEY (inventory_id) REFERENCES inventory
+);
+
+-- Relation table to check person made donation
+CREATE TABLE makes (
+	donation_id VARCHAR(10),
+	id VARCHAR(10),
+	FOREIGN KEY (donation_id) REFERENCES donation,
+	FOREIGN KEY (id) REFERENCES donor
 );

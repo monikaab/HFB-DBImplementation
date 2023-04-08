@@ -1,0 +1,1 @@
+DROP DOMAIN IF EXISTS email_domain CASCADE;

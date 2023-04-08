@@ -46,6 +46,6 @@ CREATE DOMAIN quantity_domain numeric(10,2)
 	CONSTRAINT quantity_check
 	CHECK (VALUE > 0);
 
-CREATE DOMAIN events_served_domain SMALLINT
-	CONSTRAINT events_served_check
+CREATE DOMAIN serve_domain SMALLINT
+	CONSTRAINT serve_check
 	CHECK (VALUE > -1);

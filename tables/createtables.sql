@@ -14,8 +14,29 @@ CREATE TABLE employee (
 	name name_domain,
 	email email_domain,
 	DOB DOB,
-  	sex sex_domain,
+	sex sex_domain,
 	username varchar(20),
 	password TEXT NOT NULL,
 	FOREIGN KEY (id) REFERENCES person
 );
+
+CREATE TABLE donor (
+	ID VARCHAR(10),
+	name name_domain,
+	email email_domain,
+	DOB DOB,
+	sex sex_domain,
+	phone_number phone_number_domain,
+	FOREIGN KEY (id) REFERENCES person
+)
+
+CREATE TABLE volunteer (
+	ID VARCHAR(10),
+	name name_domain,
+	email email_domain,
+	DOB DOB,
+	sex sex_domain,
+	events_served smallint,
+	password TEXT NOT NULL,
+	FOREIGN KEY (id) REFERENCES person	
+)

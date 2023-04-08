@@ -2,7 +2,7 @@ CREATE DOMAIN email_domain char(30)
 	CONSTRAINT email_test 
 	CHECK( LENGTH(VALUE) > 0 );
 
-CREATE DOMAIN phone_number_fomain char(10)
+CREATE DOMAIN phone_number_domain char(10)
 	CONSTRAINT password_check
 	CHECK (LENGTH(VALUE) = 10);
 
@@ -45,3 +45,7 @@ CREATE DOMAIN DOB DATE
 CREATE DOMAIN quantity_domain numeric(10,2)
 	CONSTRAINT quantity_check
 	CHECK (VALUE > 0);
+
+CREATE DOMAIN events_served_domain SMALLINT
+	CONSTRAINT events_served_check
+	CHECK (VALUE > -1);

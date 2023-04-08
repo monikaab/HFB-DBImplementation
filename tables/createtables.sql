@@ -1,6 +1,9 @@
 -- For encryption
 CREATE EXTENSION pgcrypto;
 
+-- For creating index
+CREATE INDEX personId INDEX ON person(id);
+
 -- person table parent to 
 -- employee, donor, volunteer.
 CREATE TABLE person (
@@ -17,6 +20,8 @@ CREATE TABLE person_phone_number (
 	ID VARCHAR(10),
 	phone_number phone_number_domain,
 	FOREIGN KEY (ID) REFERENCES person
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 -- table for saving employee details
@@ -30,6 +35,8 @@ CREATE TABLE employee (
 	password TEXT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id) REFERENCES person
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 -- Table for saving donor details
@@ -42,6 +49,8 @@ CREATE TABLE donor (
 	no_donations serve_domain,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id) REFERENCES person
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 -- Table for saving volunteer details
@@ -54,7 +63,9 @@ CREATE TABLE volunteer (
 	events_served serve_domain,
 	password TEXT NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (id) REFERENCES person	
+	FOREIGN KEY (id) REFERENCES person
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 -- Table for saving list of food items
@@ -65,6 +76,8 @@ CREATE TABLE food_item (
 	unit VARCHAR(10),
 	PRIMARY KEY (item_id),
 	FOREIGN KEY (ID) REFERENCES person
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 -- Table for community at which event is served
@@ -99,9 +112,15 @@ CREATE TABLE event (
 	loc_id VARCHAR(10),
 	location VARCHAR(20),
 	PRIMARY KEY (event_id),
-	FOREIGN KEY (id) REFERENCES person,
-	FOREIGN KEY (partner_id) REFERENCES partner_agency,
+	FOREIGN KEY (id) REFERENCES person
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
+	FOREIGN KEY (partner_id) REFERENCES partner_agency
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	FOREIGN KEY (loc_id) REFERENCES community
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 
@@ -112,14 +131,20 @@ CREATE TABLE household (
 	event_id VARCHAR(10),
 	PRIMARY KEY (ssn),
 	FOREIGN KEY (event_id) REFERENCES event
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 -- Relation table to see volunteers participated at an event
 CREATE TABLE participates (
 	id VARCHAR(10),
 	event_id VARCHAR(10),
-	FOREIGN KEY (id) REFERENCES volunteer,
+	FOREIGN KEY (id) REFERENCES volunteer
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	FOREIGN KEY (event_id) REFERENCES event
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 CREATE TABLE donation (
@@ -138,14 +163,22 @@ CREATE TABLE inventory (
 CREATE TABLE contains (
 	item_id VARCHAR(10),
 	inventory_id VARCHAR(10),
-	FOREIGN KEY (item_id) REFERENCES food_item,
+	FOREIGN KEY (item_id) REFERENCES food_item
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	FOREIGN KEY (inventory_id) REFERENCES inventory
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );
 
 -- Relation table to check person made donation
 CREATE TABLE makes (
 	donation_id VARCHAR(10),
 	id VARCHAR(10),
-	FOREIGN KEY (donation_id) REFERENCES donation,
+	FOREIGN KEY (donation_id) REFERENCES donation
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	FOREIGN KEY (id) REFERENCES donor
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 );

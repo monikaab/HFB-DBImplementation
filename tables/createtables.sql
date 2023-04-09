@@ -1,9 +1,6 @@
 -- For encryption
 CREATE EXTENSION pgcrypto;
 
--- For creating index
-CREATE INDEX personId INDEX ON person(id);
-
 -- person table parent to 
 -- employee, donor, volunteer.
 CREATE TABLE person (
